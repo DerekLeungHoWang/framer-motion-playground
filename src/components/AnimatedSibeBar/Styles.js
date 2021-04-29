@@ -51,3 +51,15 @@ export const StyledImage = styled(motion.img)`
   
   
 `;
+export const List = styled(motion.ul)`
+   
+ list-style-type:none;
+  display: flex;
+  flex-direction:row;
+  
+`;
+
+export const ListItem = styled(motion.li)`
+ 
+`;
+
