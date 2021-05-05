@@ -48,3 +48,14 @@ export const MyBackdrop = styled(motion.div)`
     z-index:999;
    
 `;
+
+export const MyModal = styled(motion.div)`
+     max-width:400px;
+     margin: 0 auto;
+     padding:40px 20px;
+     background:white;
+     border-radius:10px;
+     text-align: center;
+     height:500px;
+   
+`;
