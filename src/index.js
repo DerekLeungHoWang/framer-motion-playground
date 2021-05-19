@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+// import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { StylesProvider } from '@material-ui/styles';
 
 ReactDOM.render(
   <React.StrictMode>
-    <StylesProvider StylesProvider injectFirst>
+    {/* <StylesProvider StylesProvider injectFirst> */}
       <App />
-    </StylesProvider>
+    {/* </StylesProvider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

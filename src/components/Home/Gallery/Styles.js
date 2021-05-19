@@ -35,6 +35,7 @@ export const ImageContainer = styled(motion.div)`
   flex-wrap: wrap;
     justify-content: center;
   align-items:center;
+ cursor:pointer;
 `;
 
 export const MyBackdrop = styled(motion.div)`
