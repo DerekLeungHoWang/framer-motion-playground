@@ -5,6 +5,9 @@ import { motion, useAnimation } from 'framer-motion';
 
 
 const Wrapper = styled.div`
+    position:absolute;
+    right:0%;
+    bottom:25%;
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -16,6 +19,7 @@ const SlidesContainer = styled(motion.div)`
   width: 750px;
   overflow: hidden;
   padding: 0 5px;
+   background-color:transparent;
 `;
 
 const Button = styled.button`
@@ -46,32 +50,32 @@ function Carousel(props) {
         display: "flex",
         transition: jump ? "none" : "transform  .5s  ",
         transform: `translateX(-${(count + cursor) * 250}px)`,
-      
+
     };
-    useEffect( () => {
+    useEffect(() => {
         // console.log("count : ", count);
         console.log("cursor : ", cursor);
-        console.log('enlarge :  ',enlarge);
-        console.log('jump :  ',jump);
-      
+        console.log('enlarge :  ', enlarge);
+        console.log('jump :  ', jump);
+
         if (jump) {
 
             console.log('jumping');
-            
+
 
             setJump(false)
-     
-            
-          
-        }
-  
 
- 
+
+
+        }
+
+
+
         return () => {
             console.log('cleaning up ');
             setJump(false)
-          
-            
+
+
         }
 
 
@@ -86,7 +90,7 @@ function Carousel(props) {
         let mychildren = [].concat(children, children, children);
         return mychildren.map((child, index) => {
             //console.log("index ",index);
-            return React.cloneElement(child, { key: index, cursor, index, controls ,enlarge});
+            return React.cloneElement(child, { key: index, cursor, index, controls, enlarge });
         });
 
     }
@@ -94,7 +98,7 @@ function Carousel(props) {
 
     const changeCursor = amount => {
         setEnlarge(false)
-     
+
         setCursor(cursor + amount)
 
     };
@@ -116,18 +120,19 @@ function Carousel(props) {
 
 
             setCursor(count - 1)
- 
+
             setJump(true)
-          
+
             return;
         }
-      
+
     }
 
 
     return (
         <Wrapper>
             <Button onClick={() => changeCursor(-1)}  >Left</Button>
+            <Button onClick={() => changeCursor(1)}  >Right</Button>
             <SlidesContainer
 
                 initial="hidden"
@@ -135,12 +140,12 @@ function Carousel(props) {
                 variants={variants}
             >
                 <motion.div style={style} ref={ref}
-                     
+
                     onTransitionEnd={onTransitionEnd}>
                     {renderChildren()}
                 </motion.div>
             </SlidesContainer>
-            <Button onClick={() => changeCursor(1)}  >Right</Button>
+      
         </Wrapper>
     )
 }
