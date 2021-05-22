@@ -5,6 +5,6 @@ import {
   faChevronLeft
 } from "@fortawesome/free-solid-svg-icons";
 
-export const right = <button>LEFT</button>;
+export const right = <FontAwesomeIcon icon={faChevronRight} />;
 
-export const left = <button>LEFT</button>;
+export const left = <FontAwesomeIcon icon={faChevronLeft} />;

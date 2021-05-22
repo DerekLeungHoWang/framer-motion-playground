@@ -23,7 +23,7 @@ const modal = {
 }
 
 const Modal = ({ showModal, setShowModal }) => {
-    console.log(showModal);
+    
     return (
 
         <AnimatePresence exitBeforeEnter>

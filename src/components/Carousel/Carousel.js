@@ -1,17 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styled from "styled-components";
-import PropTypes from 'prop-types'
+
 import { motion, useAnimation } from 'framer-motion';
+import { useDispatch } from 'react-redux';
+import { retrieveCursor, retrieveEnlarge } from './actions/CarouselAction'
+import { left, right } from './Icons';
 
 
 const Wrapper = styled.div`
     position:absolute;
     right:0%;
-    bottom:25%;
+    bottom:15%;
   display: flex;
   align-items: center;
+  
   background-color: transparent;
   padding: 20px 0;
+ 
 `;
 
 const SlidesContainer = styled(motion.div)`
@@ -23,11 +28,15 @@ const SlidesContainer = styled(motion.div)`
 `;
 
 const Button = styled.button`
+ 
     height:50px;
     width:50px;
     margin:10px 10px;
-    background-color:#4CAF50;
+    background-color:#e0dcdc;
     z-index:999;
+    border-radius: 50%;
+    cursor: pointer;
+     
 `;
 
 const variants = {
@@ -38,41 +47,47 @@ const variants = {
 
 function Carousel(props) {
     const ref = useRef(null);
+    const dispatch = useDispatch()
     const [cursor, setCursor] = useState(0)
     const [jump, setJump] = useState(false)
     const [animating, setAnimating] = useState(false)
     const [enlarge, setEnlarge] = useState(false)
     const controls = useAnimation();
 
+
+
     const { children } = props;
     const count = children.length;
     const style = {
         display: "flex",
-        transition: jump ? "none" : "transform  .5s  ",
+        // transition: "",
         transform: `translateX(-${(count + cursor) * 250}px)`,
 
     };
     useEffect(() => {
-        // console.log("count : ", count);
-        console.log("cursor : ", cursor);
+      
         console.log('enlarge :  ', enlarge);
         console.log('jump :  ', jump);
-
+        dispatch(retrieveEnlarge(enlarge))
+       
+        dispatch(retrieveCursor(cursor))
         if (jump) {
 
-            console.log('jumping');
-
+            ref.current.style.transition = "none";
+            //transform   .5s  
 
             setJump(false)
+            return
 
 
-
+        }else{
+            ref.current.style.transition = " transform   .5s ";
         }
 
-
+       
 
         return () => {
-            console.log('cleaning up ');
+
             setJump(false)
 
 
@@ -89,7 +104,7 @@ function Carousel(props) {
         const { children } = props;
         let mychildren = [].concat(children, children, children);
         return mychildren.map((child, index) => {
-            //console.log("index ",index);
+            //
             return React.cloneElement(child, { key: index, cursor, index, controls, enlarge });
         });
 
@@ -99,23 +114,25 @@ function Carousel(props) {
     const changeCursor = amount => {
         setEnlarge(false)
 
+
         setCursor(cursor + amount)
 
     };
 
     const onTransitionEnd = async () => {
 
-        console.log('on transition end');
+
         setEnlarge(true)
+
         if (cursor >= count) {
-            console.log('cursor >= cursor ');
+
             setCursor(0)
             setJump(true)
             return;
         }
 
         if (cursor <= -1) {
-            console.log('cursor < = -1');
+
 
 
 
@@ -131,8 +148,9 @@ function Carousel(props) {
 
     return (
         <Wrapper>
-            <Button onClick={() => changeCursor(-1)}  >Left</Button>
-            <Button onClick={() => changeCursor(1)}  >Right</Button>
+            <Button onClick={() => changeCursor(-1)}  >{left}</Button>
+            <Button onClick={() => changeCursor(1)}  >{right}</Button>
+
             <SlidesContainer
 
                 initial="hidden"
@@ -144,8 +162,10 @@ function Carousel(props) {
                     onTransitionEnd={onTransitionEnd}>
                     {renderChildren()}
                 </motion.div>
+
+
             </SlidesContainer>
-      
+
         </Wrapper>
     )
 }
